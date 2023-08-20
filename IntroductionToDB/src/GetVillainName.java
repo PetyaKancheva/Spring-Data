@@ -15,9 +15,9 @@ public class GetVillainName {
 
     public static void main(String[] args) throws SQLException {
         final  Connection connection = Utils.getSQLconnection();
-       final PreparedStatement statement = connection.prepareStatement(GET_VILLAIN_NAME);
+        final PreparedStatement statement = connection.prepareStatement(GET_VILLAIN_NAME);
         statement.setInt(1,15);
-       final ResultSet resultSet= statement.executeQuery();
+        final ResultSet resultSet= statement.executeQuery();
 
        printResult(resultSet);
        connection.close();
