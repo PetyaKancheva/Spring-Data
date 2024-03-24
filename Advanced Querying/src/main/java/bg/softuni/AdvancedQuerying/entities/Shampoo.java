@@ -25,6 +25,15 @@ public class Shampoo extends BaseEntity {
         this.brand = brand;
     }
 
+    @Override
+    public String toString() {
+        return "Shampoo{" +
+                "brand='" + brand + '\'' +
+                ", price=" + price +
+                ", size=" + size +
+                '}';
+    }
+
     @Column(name = "price")
     public BigDecimal getPrice() {
         return this.price;
@@ -44,7 +53,7 @@ public class Shampoo extends BaseEntity {
         this.size = size;
     }
 
-    @ManyToOne(optional = true, cascade = CascadeType.ALL,
+    @ManyToOne(optional = true,
             fetch = FetchType.EAGER)
     @JoinColumn(name = "label", referencedColumnName = "id")
     public Label getLabel() {
