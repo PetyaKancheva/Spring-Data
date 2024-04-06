@@ -15,13 +15,22 @@ public interface IngredientRepository  extends JpaRepository<Ingredient, Long> {
 
     List<Ingredient> findByNameInOrderByPrice( List<String> names);
 
-    @Override
-    void delete(Ingredient entity);
+    @Modifying
+    @Transactional
+    @Query ("DELETE Ingredient as i WHERE i.name =:name")
+    void deleteByName (String name);
     @Modifying
     @Transactional
     @Query ("UPDATE Ingredient as i " +
             "SET i.price = i.price * 1.1")
     void   increasePriceBy10Percent();
+    @Modifying
+    @Transactional
+    @Query("UPDATE Ingredient as i " +
+            "SET i.price = i.price*2 " +
+            "WHERE i.name IN :names "
+    )
+    void updatePriceOfIngredientsByNameList (List <String> names);
 
 
 }

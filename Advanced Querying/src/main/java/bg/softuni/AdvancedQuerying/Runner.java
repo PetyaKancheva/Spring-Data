@@ -67,14 +67,18 @@ public class Runner implements CommandLineRunner {
 
 //        9. Delete Ingredients by Name
 //        Create a method that deletes ingredients by a given name. Use named query.
+//        ingredientService.deleteByName("Apple");
+//        System.out.println("done");
 
 //        10. Update Ingredients by Price
 //        Create a method that increases the price of all ingredients by 10%. Use named query.
-            ingredientService.increasePriceBy10Percent();
-            System.out.println("done");
+//            ingredientService.increasePriceBy10Percent();
+//            System.out.println("done");
 
 //        11. Update Ingredients by Names
-//        Create a method that updates the price of all ingredients, which names are in a given list.
+//       Create a method that updates the price of all ingredients, which names are in a given list.
+//            ingredientService.updatePriceOfIngredientsByNameList(List.of("Macadamia Oil","Aloe Vera"));
+
 
 //        result.forEach(System.out::println);
     }
