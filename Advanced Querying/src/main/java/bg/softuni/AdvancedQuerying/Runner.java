@@ -1,7 +1,10 @@
 package bg.softuni.AdvancedQuerying;
 
+import bg.softuni.AdvancedQuerying.entities.Ingredient;
 import bg.softuni.AdvancedQuerying.entities.Shampoo;
 import bg.softuni.AdvancedQuerying.entities.Size;
+import bg.softuni.AdvancedQuerying.service.IngredientService;
+import bg.softuni.AdvancedQuerying.service.IngredientServiceImpl;
 import bg.softuni.AdvancedQuerying.service.ShampooService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -11,9 +14,11 @@ import java.util.List;
 @Component
 public class Runner implements CommandLineRunner {
     ShampooService shampooService;
+    IngredientService ingredientService;
 
-   public Runner (ShampooService shampooService){
+   public Runner (ShampooService shampooService, IngredientService ingredientService){
         this.shampooService= shampooService;
+        this.ingredientService= ingredientService;
 
     }
 
@@ -40,11 +45,19 @@ public class Runner implements CommandLineRunner {
 //
 //        4. Select Ingredients by Name
 //        Create a method that selects all ingredients, which name starts with given letters.
+//        List<Ingredient> result = ingredientService.findByNameStartingWith("M");
 
+//        5. Select Ingredients by Names
+//        Create a method that selects all ingredients, which are contained in a given list. Sort the result ascending by price.
+//        List<Ingredient> result = ingredientService.findByNameIn(List.of("Lavender","Herbs","Apple"));
 
-        for (Shampoo r:result  ) {
-            System.out.println(r);
-        }
+//        6. Count Shampoos by Price
+//        Create a method that counts all shampoos with price lower than a given price.
+        int count = shampooService.
+
+//        for (Ingredient r:result  ) {
+//            System.out.println(r);
+//        }
     }
 
 

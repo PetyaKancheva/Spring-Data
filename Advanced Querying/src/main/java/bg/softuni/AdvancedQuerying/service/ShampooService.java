@@ -10,5 +10,6 @@ public interface ShampooService {
 
     List<Shampoo> findBySizeOrLabelID(Size size, int LabelId);
     List<Shampoo> findByPriceGreaterThan(Double price);
+    int countByPriceLowerThan (Double price);
 }
 
