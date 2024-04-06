@@ -11,5 +11,9 @@ public interface ShampooService {
     List<Shampoo> findBySizeOrLabelID(Size size, int LabelId);
     List<Shampoo> findByPriceGreaterThan(Double price);
     int countByPriceLowerThan (Double price);
+    List<Shampoo> findByIngredientsNameIn(List<String> ingredientNames);
+    List<Shampoo> customFindByIngredientsNameIn(List<String> ingredientNames);
+
+    List<Shampoo> customFindByIngredientsCountLessThan (int count);
 }
 

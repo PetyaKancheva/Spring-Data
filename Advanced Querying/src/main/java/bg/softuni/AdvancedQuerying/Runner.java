@@ -53,11 +53,30 @@ public class Runner implements CommandLineRunner {
 
 //        6. Count Shampoos by Price
 //        Create a method that counts all shampoos with price lower than a given price.
-        int count = shampooService.
+//        int count = shampooService.countByPriceLowerThan(8.50);
+//        System.out.println(count);
+//
+//        7. Select Shampoos by Ingredients
+//        Create a method that selects all shampoos with ingredients included in a given list.
+//        List<Shampoo> result =shampooService.findByIngredientsNameIn(List.of("Berry","Mineral-Collagen"));
+//        List<Shampoo> result =shampooService.customFindByIngredientsNameIn(List.of("Berry","Mineral-Collagen"));
+//
+//        8. Select Shampoos by Ingredients Count
+//        Create a method that selects all shampoos with ingredients less than a given number.
+//        List<Shampoo> result =shampooService.customFindByIngredientsCountLessThan( 2);
 
-//        for (Ingredient r:result  ) {
-//            System.out.println(r);
-//        }
+//        9. Delete Ingredients by Name
+//        Create a method that deletes ingredients by a given name. Use named query.
+
+//        10. Update Ingredients by Price
+//        Create a method that increases the price of all ingredients by 10%. Use named query.
+            ingredientService.increasePriceBy10Percent();
+            System.out.println("done");
+
+//        11. Update Ingredients by Names
+//        Create a method that updates the price of all ingredients, which names are in a given list.
+
+//        result.forEach(System.out::println);
     }
 
 

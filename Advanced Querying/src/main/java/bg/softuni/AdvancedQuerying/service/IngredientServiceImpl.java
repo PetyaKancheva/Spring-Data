@@ -29,4 +29,9 @@ public class IngredientServiceImpl implements  IngredientService{
         return ingredientRepository.findByNameInOrderByPrice( names);
     }
 
+    @Override
+    public void increasePriceBy10Percent() {
+            ingredientRepository.increasePriceBy10Percent();
+    }
+
 }
