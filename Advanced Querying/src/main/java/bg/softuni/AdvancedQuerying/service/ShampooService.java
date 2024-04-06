@@ -9,5 +9,6 @@ public interface ShampooService {
     List<Shampoo> findAllWithSize(Size size);
 
     List<Shampoo> findBySizeOrLabelID(Size size, int LabelId);
+    List<Shampoo> findByPriceGreaterThan(Double price);
 }
 
