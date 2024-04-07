@@ -43,10 +43,6 @@ public class EmployeeDto {
 
     @Override
     public String toString() {
-        return "EmployeeDto{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", salary='" + salary + '\'' +
-                '}';
+        return " - " + firstName + " " + lastName + " " + salary +"\n";
     }
 }

@@ -10,25 +10,35 @@ public class Employee {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+
     private String firstName;
-    @Column(nullable = false)
     private String lastName;
     private BigDecimal salary;
-    @Column(nullable = false)
     private LocalDate birthday;
+    private Boolean isOnHoliday;
     @ManyToOne
-    @Column(nullable = false)
+    private Employee manager;
+
+    @ManyToOne
     private Address address;
 
     public Employee() {
+
     }
 
-    public Employee(String firstName, String lastName, BigDecimal salary, LocalDate birthday, Address address) {
+    public Employee(String firstName, String lastName, BigDecimal salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.salary = salary;
+
+    }
+
+    public Employee(String firstName, String lastName, BigDecimal salary, LocalDate birthday, Boolean isOnHoliday, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.salary = salary;
         this.birthday = birthday;
+        this.isOnHoliday = isOnHoliday;
         this.address = address;
     }
 
@@ -92,6 +102,24 @@ public class Employee {
 
     public Employee setAddress(Address address) {
         this.address = address;
+        return this;
+    }
+
+    public Boolean getOnHoliday() {
+        return isOnHoliday;
+    }
+
+    public Employee setOnHoliday(Boolean onHoliday) {
+        isOnHoliday = onHoliday;
+        return this;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public Employee setManager(Employee manager) {
+        this.manager = manager;
         return this;
     }
 }
