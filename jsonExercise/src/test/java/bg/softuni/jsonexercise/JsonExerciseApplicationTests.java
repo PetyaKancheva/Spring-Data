@@ -1,10 +1,10 @@
-package bg.softuni.gsonexercise;
+package bg.softuni.jsonexercise;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GsonExerciseApplicationTests {
+class JsonExerciseApplicationTests {
 
     @Test
     void contextLoads() {

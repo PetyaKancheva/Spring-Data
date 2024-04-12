@@ -1,13 +1,13 @@
-package bg.softuni.gsonexercise;
+package bg.softuni.jsonexercise;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GsonExerciseApplication {
+public class JsonExerciseApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GsonExerciseApplication.class, args);
+        SpringApplication.run(JsonExerciseApplication.class, args);
     }
 
 }
