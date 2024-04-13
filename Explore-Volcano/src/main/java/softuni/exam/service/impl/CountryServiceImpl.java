@@ -15,7 +15,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Optional;
 
-// TODO: Implement all methods
+
 @Service
 public class CountryServiceImpl implements CountryService {
     private final Gson gson;
@@ -51,6 +51,7 @@ public class CountryServiceImpl implements CountryService {
                         countrySeedDTO -> {
                             boolean isValid = validationUtil.isValid((countrySeedDTO));
                             Optional<Country> countryByName = countryRepository.findByName(countrySeedDTO.getName());
+
                             if (countryByName.isPresent()) {
                                 isValid = false;
                             }
@@ -68,5 +69,10 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public Optional<Country> getCountryById(Long countryId) {
         return countryRepository.findById(countryId);
+    }
+
+    @Override
+    public void saveAddedVolcanoInCountry(Country country) {
+        countryRepository.save(country);
     }
 }

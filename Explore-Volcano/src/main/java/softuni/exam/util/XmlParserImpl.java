@@ -12,9 +12,13 @@ public class XmlParserImpl implements XmlParser {
 
 
     @Override
-    public <T> T fromFile(String filePath, Class<T> tClass) {
-        //TODO
+    @SuppressWarnings("unchecked")
+    public <T> T fromFile(String filePath, Class<T> tClass) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(tClass);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-        return null;
+        return (T) unmarshaller.unmarshal(new File(filePath));
+
+
     }
 }

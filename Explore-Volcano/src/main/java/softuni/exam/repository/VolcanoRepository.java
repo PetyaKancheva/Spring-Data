@@ -6,7 +6,7 @@ import softuni.exam.models.entity.Volcano;
 
 import java.util.Optional;
 
-// TODO:
+
 @Repository
 public interface VolcanoRepository extends JpaRepository<Volcano,Long> {
  Optional<Volcano> findByName (String name);

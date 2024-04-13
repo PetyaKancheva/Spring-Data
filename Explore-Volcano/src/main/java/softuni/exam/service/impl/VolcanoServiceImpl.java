@@ -72,18 +72,16 @@ public class VolcanoServiceImpl implements VolcanoService {
                 .map(volcanoSeedDTO -> {
                     Volcano volcano = modelMapper.map(volcanoSeedDTO, Volcano.class);
 
-                    Country country=countryService.getCountryById(volcanoSeedDTO.getCountry()).orElse(null);
-                    volcano.set
+                    Country country = countryService.getCountryById(volcanoSeedDTO.getCountry()).orElse(null);
 
+                    country.getVolcanoes().add(volcano);
+                    countryService.saveAddedVolcanoInCountry(country);
 
-
-
-
-
-                return volcano;
+                    volcano.setCountry(country);
+                    return volcano;
                 })
 
-              .forEach(v -> volcanoRepository.save(v));
+                .forEach(v -> volcanoRepository.save(v));
 
         return sb.toString().trim();
     }
