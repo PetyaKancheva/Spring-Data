@@ -3,8 +3,12 @@ package softuni.exam.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import softuni.exam.models.dto.VolcanologistRootSeedDTO;
+import softuni.exam.models.dto.VolcanologistSeedDTO;
+import softuni.exam.models.entity.Volcano;
 import softuni.exam.models.entity.Volcanologist;
+import softuni.exam.repository.VolcanoRepository;
 import softuni.exam.repository.VolcanologistRepository;
+import softuni.exam.service.VolcanoService;
 import softuni.exam.service.VolcanologistService;
 import softuni.exam.util.ValidationUtil;
 import softuni.exam.util.XmlParser;
@@ -22,12 +26,14 @@ public class VolcanologistServiceImpl implements VolcanologistService {
     private final VolcanologistRepository volcanologistRepository;
     private final XmlParser xmlParser;
     private final ValidationUtil validationUtil;
+    private final VolcanoService volcanoService;
     private final ModelMapper modelMapper;
 
-    public VolcanologistServiceImpl(VolcanologistRepository volcanologistRepository, XmlParser xmlParser, ValidationUtil validationUtil, ModelMapper modelMapper) {
+    public VolcanologistServiceImpl(VolcanologistRepository volcanologistRepository, XmlParser xmlParser, ValidationUtil validationUtil, VolcanoService volcanoService, ModelMapper modelMapper) {
         this.volcanologistRepository = volcanologistRepository;
         this.xmlParser = xmlParser;
         this.validationUtil = validationUtil;
+        this.volcanoService = volcanoService;
         this.modelMapper = modelMapper;
     }
 
@@ -45,25 +51,42 @@ public class VolcanologistServiceImpl implements VolcanologistService {
     public String importVolcanologists() throws IOException, JAXBException {
         StringBuilder sb = new StringBuilder();
 
+
         xmlParser.fromFile(VOLCANOLOGIST_FILE_PATH, VolcanologistRootSeedDTO.class)
-                .getVolcanologistsDTOList().stream()
+                .getVolcanologistsDTOList()
+                .stream()
                 .filter(volcanologistSeedDTO -> {
+
                     boolean isValid = validationUtil.isValid(volcanologistSeedDTO);
 
-                    Optional<Volcanologist> volcanologist =volcanologistRepository
-                            .findByFirstNameAndLastName(volcanologistSeedDTO.getFirstName()
-                                    ,volcanologistSeedDTO.getLastName());
-                    if(volcanologist.isPresent()){
-                        isValid=false;
+                    Volcano volcano = volcanoService.findVolcanoById(volcanologistSeedDTO.getExploringVolcano());
+                    if (volcano == null) {
+                        isValid = false;
                     }
 
+                    Volcanologist volcanologist = volcanologistRepository
+                            .findByFirstNameAndLastName(volcanologistSeedDTO.getFirstName()
+                                    , volcanologistSeedDTO.getLastName()).orElse(null);
 
+                    if (volcanologist !=null) {
+                        isValid = false;
+                    }
 
+                    sb.append(isValid
+                                ? String.format("Successfully imported volcanologist %s %s", volcanologistSeedDTO.getFirstName(), volcanologistSeedDTO.getLastName())
+                                    : "Invalid volcanologist")
+                            .append(System.lineSeparator());
 
-
-
+                    return isValid;
                 })
+                .map(volcanologistSeedDTO -> {
+                    Volcanologist volcanologist = modelMapper.map(volcanologistSeedDTO, Volcanologist.class);
 
+                    Volcano volcano = volcanoService.findVolcanoById(volcanologistSeedDTO.getExploringVolcano());
+                    volcanoService.addAndSaveAddedVolcano(volcano, volcanologist);
+                    volcanologist.setExploringVolcano(volcano);
+                    return volcanologist;
+                }).forEach(person -> volcanologistRepository.save(person));
 
         return sb.toString();
     }

@@ -14,7 +14,7 @@ import java.util.List;
 @XmlRootElement(name="volcanologists")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class VolcanologistRootSeedDTO {
-    @XmlElement(name="volcanologists")
-    private List<VolcanologistSeedDTO> volcanologistsDTOList = new ArrayList<>();
+    @XmlElement(name="volcanologist")
+    private List<VolcanologistSeedDTO> volcanologistsDTOList;
 
 }

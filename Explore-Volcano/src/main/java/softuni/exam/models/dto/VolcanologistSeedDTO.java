@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Getter
 @Setter
-@XmlRootElement
+@XmlRootElement(name="volcanologist")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class VolcanologistSeedDTO {
     @XmlElement(name = "first_name")
@@ -38,7 +38,7 @@ public class VolcanologistSeedDTO {
     private String exploringFrom;
 
     @XmlElement(name = "exploring_volcano_id")
-    private int exploringVolcano;
+    private Long exploringVolcano;
 
 
 }

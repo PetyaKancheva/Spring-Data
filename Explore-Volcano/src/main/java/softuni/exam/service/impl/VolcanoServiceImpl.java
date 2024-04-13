@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import softuni.exam.models.dto.VolcanoSeedDTO;
 import softuni.exam.models.entity.Country;
 import softuni.exam.models.entity.Volcano;
+import softuni.exam.models.entity.Volcanologist;
 import softuni.exam.repository.VolcanoRepository;
 import softuni.exam.service.CountryService;
 import softuni.exam.service.VolcanoService;
@@ -16,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Set;
 
 // TODO: Implement all methods
 @Service
@@ -87,7 +89,39 @@ public class VolcanoServiceImpl implements VolcanoService {
     }
 
     @Override
+    public Volcano findVolcanoById(Long volcanoId) {
+        return volcanoRepository.findById(volcanoId).orElse(null);
+    }
+
+    @Override
+    public void addAndSaveAddedVolcano(Volcano volcano, Volcanologist volcanologist) {
+        volcano.getVolcanologists().add(volcanologist);
+        volcanoRepository.save(volcano);
+
+    }
+
+    @Override
     public String exportVolcanoes() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+
+
+        Set<Volcano> allVolcanoesByType = volcanoRepository.findByElevationGreaterThanAndActiveIsTrueAndLastEruptionIsNotNullOrderByElevationDesc();
+
+        allVolcanoesByType.forEach(v -> {
+            sb.append(String.format("Volcano: %s\n" +
+                                    "   *Located in: %s\n" +
+                                    "   **Elevation: %d\n" +
+                                    "   ***Last eruption on: %s",
+                            v.getName(),
+                            v.getCountry().getName(),
+                            v.getElevation(),
+                            v.getLastEruption()))
+                    .append(System.lineSeparator());
+
+        });
+
+
+
+        return sb.toString();
     }
 }

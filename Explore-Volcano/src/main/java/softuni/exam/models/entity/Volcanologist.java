@@ -1,5 +1,8 @@
 package softuni.exam.models.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -7,6 +10,8 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "volcanologists")
 public class Volcanologist extends BaseEntity {
