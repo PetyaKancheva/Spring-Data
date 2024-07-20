@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class CountrySeedDTO {
     @Expose
-    @Size(min=3 , max=30)
+    @Size(min=7 , max=7)
     private String name;
     @Expose
     @Size(min=3 , max=30)

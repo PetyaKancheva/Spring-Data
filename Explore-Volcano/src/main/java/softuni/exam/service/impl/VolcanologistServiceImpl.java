@@ -17,7 +17,9 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 // TODO: Implement all methods
 @Service
@@ -51,13 +53,15 @@ public class VolcanologistServiceImpl implements VolcanologistService {
     public String importVolcanologists() throws IOException, JAXBException {
         StringBuilder sb = new StringBuilder();
 
+            List<VolcanologistSeedDTO> volcanologistList = xmlParser.fromFile(VOLCANOLOGIST_FILE_PATH, VolcanologistRootSeedDTO.class)
+                    .getVolcanologistsDTOList().stream().collect(Collectors.toList());
 
-        xmlParser.fromFile(VOLCANOLOGIST_FILE_PATH, VolcanologistRootSeedDTO.class)
-                .getVolcanologistsDTOList()
-                .stream()
+        volcanologistList.stream()
                 .filter(volcanologistSeedDTO -> {
+//                    boolean isValid = true;
 
                     boolean isValid = validationUtil.isValid(volcanologistSeedDTO);
+
 
                     Volcano volcano = volcanoService.findVolcanoById(volcanologistSeedDTO.getExploringVolcano());
                     if (volcano == null) {
